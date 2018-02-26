@@ -1,0 +1,36 @@
+1. Select name 
+    -> From Highschooler, Friend
+    -> Where ID1 IN
+    ->  (Select ID
+    ->   From Highschooler
+    ->   Where name = 'Gabriel')
+    -> AND ID2 = ID;
+
+2. Select DISTINCT name, grade
+    -> From Highschooler, Likes
+    -> Where ID NOT IN 
+    ->  (Select ID1
+    ->   From Likes)
+    -> AND ID NOT IN
+    ->  (Select ID2
+    ->   From Likes);
+    
+3. Select DISTINCT name, grade
+    -> From Highschooler, Likes l1, Likes l2
+    -> Where l1.ID2 = l2.ID2
+    -> AND l1.ID1 <> l2.ID1
+    -> AND l2.ID2 = ID;
+    
+4. Select h1.name, h1.grade, h2.name, h2.grade
+    -> From Highschooler h1, Highschooler h2, Likes
+    -> Where ID1 = h1.ID
+    -> AND ID2 = h2.ID
+    -> AND h2.grade <= (h1.grade - 2);
+    
+8. Select AVG(Count) AS average_friends
+   From 
+    (Select ID1, COUNT(ID1) AS Count
+     From Friend
+     Group By ID1) As T;
+    Source: https://www.w3schools.com/sql/sql_groupby.asp
+    
